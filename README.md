@@ -62,10 +62,10 @@ Incluye funcionalidades CRUD, filtrado por estado/prioridad, y paginación
 
 
 ## 🌐 Variables de entorno .env
-MONGODB_URI=mongodb+srv://usuario:clave@cluster.mongodb.net/db
-COGNITO_REGION=us-east-1
-COGNITO_USER_POOL_ID=us-east-1_XXXXXXXXX
-COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
+- MONGODB_URI=mongodb+srv://usuario:clave@cluster.mongodb.net/db
+- COGNITO_REGION=us-east-1
+- COGNITO_USER_POOL_ID=us-east-1_XXXXXXXXX
+- COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ## 💡 Mejoras futuras
 - Notificaciones por correo
