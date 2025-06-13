@@ -49,6 +49,18 @@ Incluye funcionalidades CRUD, filtrado por estado/prioridad, y paginación
 | DELETE | /tasks/\:id | Eliminar tarea            | ✅           |
 
 
+## 📦 Ejemplos de body
+
+✅ Crear una tarea – POST /tasks
+{
+  "title": "Tarea técnica 4",
+  "description": "Completar API de prueba para entrevista 4",
+  "status": "pendiente", //puede ser: 'pendiente', 'en_progreso', 'completada'
+  "dueDate": "2025-06-15",
+  "priority": "alta" //puede ser: 'alta', 'media', 'baja'
+}
+
+
 ## 🌐 Variables de entorno .env
 MONGODB_URI=mongodb+srv://usuario:clave@cluster.mongodb.net/db
 COGNITO_REGION=us-east-1
