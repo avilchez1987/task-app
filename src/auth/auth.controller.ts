@@ -37,13 +37,14 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  ): Promise<{ accessToken: string; idToken: string; refreshToken: string }> {
     const { email, password } = loginDto;
 
     const tokens = await this.cognitoService.login(email, password);
 
     return {
       accessToken: tokens.AccessToken,
+      idToken: tokens.IdToken,
       refreshToken: tokens.RefreshToken,
     };
   }

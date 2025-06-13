@@ -16,7 +16,6 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from 'src/auth/interfaces/user.interface';
 import { FilterTaskDto } from './dto/filter-task.dto';
-import { Request } from 'express';
 
 @UseGuards(JwtAuthGuard)
 @Controller('tasks')

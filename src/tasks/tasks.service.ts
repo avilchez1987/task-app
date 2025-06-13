@@ -6,12 +6,15 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { FilterTaskDto } from './dto/filter-task.dto';
 
+type CreateTaskWithUserDto = CreateTaskDto & { userId: string };
+
 @Injectable()
 export class TasksService {
   constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
 
-  async create(createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.taskModel.create(createTaskDto);
+  async create(createTask: CreateTaskWithUserDto): Promise<Task> {
+    const task = new this.taskModel(createTask);
+    return task.save();
   }
 
   async findAll(userId: string, filterDto: FilterTaskDto) {

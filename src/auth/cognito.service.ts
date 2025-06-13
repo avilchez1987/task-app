@@ -55,14 +55,19 @@ export class CognitoService {
       const response = await this.client.send(command);
       const authResult = response.AuthenticationResult;
 
-      if (!authResult || !authResult.AccessToken || !authResult.RefreshToken) {
+      if (
+        !authResult ||
+        !authResult.AccessToken ||
+        !authResult.IdToken ||
+        !authResult.RefreshToken
+      ) {
         throw new Error('Autenticación fallida: tokens incompletos');
       }
 
       return {
         AccessToken: authResult.AccessToken,
         RefreshToken: authResult.RefreshToken,
-        IdToken: authResult.IdToken ?? '',
+        IdToken: authResult.IdToken,
         ExpiresIn: authResult.ExpiresIn ?? 0,
         TokenType: authResult.TokenType ?? 'Bearer',
       };

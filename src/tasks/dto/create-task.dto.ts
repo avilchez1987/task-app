@@ -31,7 +31,4 @@ export class CreateTaskDto {
   @IsOptional()
   @IsEnum(TaskPriority)
   priority?: TaskPriority;
-
-  @IsString()
-  userId: string; // Temporal hasta tener Cognito
 }

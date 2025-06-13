@@ -54,23 +54,11 @@ MONGODB_URI=mongodb+srv://usuario:clave@cluster.mongodb.net/db
 COGNITO_REGION=us-east-1
 COGNITO_USER_POOL_ID=us-east-1_XXXXXXXXX
 COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
-COGNITO_ISSUER=https://cognito-idp.us-east-1.amazonaws.com/us-east-1_XXXXXXXXX
 
-
-## 📁 Estructura del proyecto
-src/
-├── auth/            # JWT guard, estrategia Cognito y token validation
-│   ├── cognito.service.ts
-│   ├── jwt.strategy.ts
-│   └── jwt-auth.guard.ts
-├── users/           # Registro y lógica del usuario (MongoDB)
-│   ├── users.service.ts
-│   ├── users.module.ts
-│   └── schemas/
-│       └── user.schema.ts
-├── tasks/           # CRUD de tareas
-│   ├── tasks.controller.ts
-│   ├── tasks.service.ts
-│   ├── dto/
-│   └── schemas/
-└── main.ts
+## 💡 Mejoras futuras
+- Notificaciones por correo
+- Recordatorios de tareas
+- Tests unitarios
+  
+## 👨‍💻 Autor
+Desarrollado por [Alfonso Vilchez]
