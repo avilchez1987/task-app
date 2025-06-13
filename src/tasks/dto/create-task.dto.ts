@@ -1,4 +1,16 @@
-import { IsString, IsOptional, IsIn, IsDateString } from 'class-validator';
+import { IsString, IsOptional, IsEnum, IsDateString } from 'class-validator';
+
+export enum TaskStatus {
+  PENDIENTE = 'pendiente',
+  EN_PROGRESO = 'en_progreso',
+  COMPLETADA = 'completada',
+}
+
+export enum TaskPriority {
+  BAJA = 'baja',
+  MEDIA = 'media',
+  ALTA = 'alta',
+}
 
 export class CreateTaskDto {
   @IsString()
@@ -9,16 +21,16 @@ export class CreateTaskDto {
   description?: string;
 
   @IsOptional()
-  @IsIn(['pendiente', 'en_progreso', 'completada'])
-  status?: string;
+  @IsEnum(TaskStatus)
+  status?: TaskStatus;
 
   @IsOptional()
   @IsDateString()
   dueDate?: Date;
 
   @IsOptional()
-  @IsIn(['alta', 'media', 'baja'])
-  priority?: string;
+  @IsEnum(TaskPriority)
+  priority?: TaskPriority;
 
   @IsString()
   userId: string; // Temporal hasta tener Cognito

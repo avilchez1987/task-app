@@ -7,27 +7,38 @@ import {
   Delete,
   Put,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AuthUser } from 'src/auth/interfaces/user.interface';
+import { FilterTaskDto } from './dto/filter-task.dto';
+import { Request } from 'express';
 
+@UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  create(
+    @Body() createTaskDto: CreateTaskDto,
+    @Req() req: Request & { user: AuthUser },
+  ) {
+    const userId = req.user.userId;
+    return this.tasksService.create({ ...createTaskDto, userId });
   }
 
   @Get()
   findAll(
-    @Query('userId') userId: string,
-    @Query('status') status?: string,
-    @Query('priority') priority?: string,
+    @Req() req: Request & { user: AuthUser },
+    @Query() filterDto: FilterTaskDto,
   ) {
-    return this.tasksService.findAll(userId, status, priority);
+    const userId = req.user.userId;
+    return this.tasksService.findAll(userId, filterDto);
   }
 
   @Get(':id')

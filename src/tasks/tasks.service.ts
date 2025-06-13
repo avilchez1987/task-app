@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from './schemas/task.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { FilterTaskDto } from './dto/filter-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -13,15 +14,28 @@ export class TasksService {
     return this.taskModel.create(createTaskDto);
   }
 
-  async findAll(
-    userId: string,
-    status?: string,
-    priority?: string,
-  ): Promise<Task[]> {
-    const filters: any = { userId };
-    if (status) filters.status = status;
-    if (priority) filters.priority = priority;
-    return this.taskModel.find(filters).sort({ dueDate: 1 });
+  async findAll(userId: string, filterDto: FilterTaskDto) {
+    const { status, priority, page = '1', limit = '10' } = filterDto;
+    const filter: Partial<Record<'status' | 'priority' | 'userId', string>> = {
+      userId,
+    };
+
+    if (status) filter.status = status;
+    if (priority) filter.priority = priority;
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [data, total] = await Promise.all([
+      this.taskModel.find(filter).skip(skip).limit(parseInt(limit)).exec(),
+      this.taskModel.countDocuments(filter),
+    ]);
+
+    return {
+      data,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      total,
+      totalPages: Math.ceil(total / parseInt(limit)),
+    };
   }
 
   async findOne(id: string): Promise<Task> {
